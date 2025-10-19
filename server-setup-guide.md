@@ -119,6 +119,130 @@ free -m
 
 ---
 
+## 开发环境配置
+
+### Zsh 和 Oh-My-Zsh
+
+#### Zsh 简介
+Zsh (Z Shell) 是一个功能强大的命令行 Shell，具有以下优势：
+
+- ✅ 强大的自动补全功能
+- ✅ 丰富的插件生态系统
+- ✅ 美观的主题支持
+- ✅ 更好的命令历史管理
+- ✅ 改进的脚本语法
+
+#### 安装 Zsh 和 Oh-My-Zsh
+
+```bash
+# 安装 Zsh 和 Git
+apt install zsh git -y
+
+# 安装 Oh-My-Zsh（自动化安装）
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+# 设置为默认 Shell
+chsh -s $(which zsh)
+
+# 重新登录后生效
+```
+
+#### 验证安装
+
+```bash
+# 查看 Zsh 版本
+zsh --version
+
+# 查看当前 Shell
+echo $SHELL
+
+# 查看 Oh-My-Zsh 配置
+cat ~/.zshrc
+```
+
+#### 常用配置
+
+```bash
+# 编辑配置文件
+nano ~/.zshrc
+
+# 修改主题（推荐主题）
+ZSH_THEME="robbyrussell"  # 默认主题
+ZSH_THEME="agnoster"      # 美观主题
+ZSH_THEME="powerlevel10k/powerlevel10k"  # 强大主题
+
+# 启用插件
+plugins=(git docker node npm)
+
+# 应用配置
+source ~/.zshrc
+```
+
+### Node.js LTS 安装
+
+#### Node.js 简介
+Node.js 是基于 Chrome V8 引擎的 JavaScript 运行时，适用于：
+
+- ✅ 服务端应用开发
+- ✅ 前端工具链（Webpack、Vite 等）
+- ✅ 命令行工具开发
+- ✅ 全栈 JavaScript 开发
+
+#### Debian/Ubuntu 系统
+
+```bash
+# 配置 NodeSource 官方仓库（LTS 版本）
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+
+# 安装 Node.js
+sudo apt-get install -y nodejs
+
+# 验证安装
+node --version
+npm --version
+```
+
+#### CentOS/RHEL/Fedora 系统
+
+```bash
+# 配置 NodeSource 官方仓库（LTS 版本）
+curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash -
+
+# 安装 Node.js
+yum install -y nodejs  # CentOS 7
+dnf install -y nodejs  # CentOS 8+/Fedora
+
+# 验证安装
+node --version
+npm --version
+```
+
+#### Arch Linux 系统
+
+```bash
+# 安装 Node.js（官方仓库）
+pacman -S nodejs npm
+
+# 验证安装
+node --version
+npm --version
+```
+
+#### 配置 npm 镜像（可选）
+
+```bash
+# 使用淘宝镜像加速（国内推荐）
+npm config set registry https://registry.npmmirror.com
+
+# 验证镜像配置
+npm config get registry
+
+# 恢复官方镜像
+npm config set registry https://registry.npmjs.org
+```
+
+---
+
 ## 容器环境 (Docker)
 
 ### Docker 安装
@@ -267,6 +391,8 @@ fail2ban-client status
 完成以上配置后，您的服务器将具备：
 
 ✅ **性能优化**：系统调优 + BBR 网络加速 + SWAP 内存管理
+✅ **开发环境**：Zsh + Oh-My-Zsh 提升命令行体验
+✅ **运行时环境**：Node.js LTS 支持现代化开发
 ✅ **容器支持**：Docker 环境ready
 ✅ **安全加固**：非标准端口 + 密钥认证 + 入侵防护
 

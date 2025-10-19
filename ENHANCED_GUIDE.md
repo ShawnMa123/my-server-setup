@@ -127,7 +127,54 @@ BBR (Bottleneck Bandwidth and RTT) 是 Google 开发的革命性网络优化技�
 • 防止 OOM 终止 - 避免程序因内存不足被强制终止
 ```
 
-### 6. Docker 安装
+### 6. Zsh 和 Oh-My-Zsh 安装
+
+**新增功能：**
+- 🐚 检查现有 Zsh 和 Oh-My-Zsh 状态
+- 🎯 详细说明 Zsh 主要特性
+- 🔧 自动安装并配置 Oh-My-Zsh
+- 💡 可选设置为默认 Shell
+
+**交互示例：**
+```
+🐚 Zsh Shell 环境
+Zsh 是一个功能强大的 Shell，Oh-My-Zsh 提供丰富的插件和主题
+
+🔍 当前 Shell 状态检查：
+• Zsh 状态: 未安装
+• Oh-My-Zsh: 未安装
+
+🎯 主要特性：
+• 强大的自动补全功能
+• 丰富的插件生态系统
+• 美观的主题支持
+• 更好的命令历史管理
+```
+
+### 7. Node.js LTS 安装
+
+**新增功能：**
+- 📦 检查现有 Node.js 状态
+- 🎯 自动配置 NodeSource 官方仓库
+- 🔧 安装 Node.js LTS 长期支持版
+- ✅ 验证 Node.js 和 npm 版本
+
+**交互示例：**
+```
+📦 Node.js 运行环境
+Node.js 是基于 Chrome V8 引擎的 JavaScript 运行时
+
+🔍 当前 Node.js 状态检查：
+• Node.js 状态: 未安装
+
+🎯 将安装 Node.js LTS 版本（长期支持版）
+
+安装完成后显示：
+• Node.js: v20.x.x
+• npm: v10.x.x
+```
+
+### 8. Docker 安装
 
 **新增功能：**
 - 🐳 检查现有 Docker 状态
@@ -190,9 +237,9 @@ sudo ./server-setup.sh
 
 | 发行版系列 | 具体发行版 | 包管理器 | 特殊优化 |
 |------------|------------|----------|----------|
-| Debian 系列 | Debian, Ubuntu | apt | 官方脚本优先 |
-| Red Hat 系列 | CentOS, RHEL, Fedora | yum/dnf | EPEL 仓库集成 |
-| Arch 系列 | Arch Linux, Manjaro | pacman | 滚动更新支持 |
+| Debian 系列 | Debian, Ubuntu | apt | 官方脚本优先，NodeSource 仓库 |
+| Red Hat 系列 | CentOS, RHEL, Fedora | yum/dnf | EPEL 仓库集成，RPM 仓库 |
+| Arch 系列 | Arch Linux, Manjaro | pacman | 滚动更新支持，官方仓库 |
 | SUSE 系列 | openSUSE, SLES | zypper | 企业级特性 |
 
 ## 🔧 高级特性
@@ -237,6 +284,8 @@ sudo ./server-setup.sh
 
 - **网络性能**: 20-50% 吞吐量提升
 - **内存效率**: SWAP 支持，避免 OOM
+- **开发环境**: Zsh + Oh-My-Zsh 提升命令行体验
+- **运行时环境**: Node.js LTS 支持现代化开发
 - **安全防护**: fail2ban 入侵检测
 - **容器支持**: Docker 环境ready
 - **系统稳定性**: 全面的参数优化

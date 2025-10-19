@@ -257,6 +257,8 @@ show_welcome() {
     echo "✓ 系统性能调优"
     echo "✓ BBR 网络优化"
     echo "✓ SWAP 交换空间配置"
+    echo "✓ Zsh 和 Oh-My-Zsh 安装"
+    echo "✓ Node.js LTS 环境安装"
     echo "✓ Docker 环境安装"
     echo "✓ SSH 安全配置"
     echo "✓ fail2ban 入侵防护"
@@ -726,7 +728,133 @@ configure_swap() {
     fi
 }
 
-# 6. Docker 安装
+# 6. Zsh 和 Oh-My-Zsh 安装
+install_zsh() {
+    echo ""
+    echo -e "${BLUE}=== Zsh 和 Oh-My-Zsh 安装 ===${NC}"
+
+    echo -e "${YELLOW}🐚 Zsh Shell 环境${NC}"
+    echo "Zsh 是一个功能强大的 Shell，Oh-My-Zsh 提供丰富的插件和主题"
+    echo ""
+
+    # 检查是否已安装
+    echo "🔍 当前 Shell 状态检查："
+    if command -v zsh >/dev/null 2>&1; then
+        echo "• Zsh 状态: 已安装"
+        echo "• Zsh 版本: $(zsh --version 2>/dev/null || echo '未知')"
+    else
+        echo "• Zsh 状态: 未安装"
+    fi
+
+    if [ -d "$HOME/.oh-my-zsh" ] || [ -d "/root/.oh-my-zsh" ]; then
+        echo "• Oh-My-Zsh: 已安装"
+    else
+        echo "• Oh-My-Zsh: 未安装"
+    fi
+
+    echo ""
+    echo "🎯 主要特性："
+    echo "• 强大的自动补全功能"
+    echo "• 丰富的插件生态系统"
+    echo "• 美观的主题支持"
+    echo "• 更好的命令历史管理"
+    echo ""
+
+    if confirm "是否安装 Zsh 和 Oh-My-Zsh？" "y"; then
+        log_info "正在安装 Zsh..."
+        install_package "zsh git"
+
+        log_info "正在安装 Oh-My-Zsh..."
+        if sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended; then
+            log_success "Oh-My-Zsh 安装完成"
+
+            # 设置为默认 Shell
+            if confirm "是否将 Zsh 设置为默认 Shell？" "y"; then
+                chsh -s $(which zsh)
+                log_success "Zsh 已设置为默认 Shell（重新登录后生效）"
+            fi
+        else
+            log_error "Oh-My-Zsh 安装失败"
+        fi
+    fi
+}
+
+# 7. Node.js LTS 安装
+install_nodejs() {
+    echo ""
+    echo -e "${BLUE}=== Node.js LTS 安装 ===${NC}"
+
+    echo -e "${YELLOW}📦 Node.js 运行环境${NC}"
+    echo "Node.js 是基于 Chrome V8 引擎的 JavaScript 运行时"
+    echo ""
+
+    # 检查是否已安装
+    echo "🔍 当前 Node.js 状态检查："
+    if command -v node >/dev/null 2>&1; then
+        echo "• Node.js 状态: 已安装"
+        echo "• Node.js 版本: $(node --version 2>/dev/null || echo '未知')"
+        echo "• npm 版本: $(npm --version 2>/dev/null || echo '未知')"
+    else
+        echo "• Node.js 状态: 未安装"
+    fi
+
+    echo ""
+    echo "🎯 将安装 Node.js LTS 版本（长期支持版）"
+    echo ""
+
+    if confirm "是否安装 Node.js LTS？" "y"; then
+        log_info "正在配置 Node.js 仓库..."
+
+        case "$DISTRO" in
+            debian-based)
+                if curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -; then
+                    log_info "正在安装 Node.js..."
+                    install_package "nodejs"
+                    log_success "Node.js 安装完成"
+                else
+                    log_error "Node.js 仓库配置失败"
+                fi
+                ;;
+            rhel-based)
+                if curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash -; then
+                    install_package "nodejs"
+                    log_success "Node.js 安装完成"
+                else
+                    log_error "Node.js 仓库配置失败"
+                fi
+                ;;
+            arch-based)
+                install_package "nodejs npm"
+                log_success "Node.js 安装完成"
+                ;;
+            suse-based)
+                install_package "nodejs npm"
+                log_success "Node.js 安装完成"
+                ;;
+            *)
+                log_warning "未知发行版，尝试通用安装方法"
+                if curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -; then
+                    install_package "nodejs"
+                    log_success "Node.js 安装完成"
+                else
+                    log_error "Node.js 安装失败"
+                    return 1
+                fi
+                ;;
+        esac
+
+        # 验证安装
+        if command -v node >/dev/null 2>&1; then
+            log_info "Node.js 版本信息："
+            echo "• Node.js: $(node --version)"
+            echo "• npm: $(npm --version)"
+        else
+            log_error "Node.js 安装验证失败"
+        fi
+    fi
+}
+
+# 8. Docker 安装
 install_docker() {
     echo ""
     echo -e "${BLUE}=== Docker 环境安装 ===${NC}"
@@ -886,7 +1014,7 @@ install_docker() {
     fi
 }
 
-# 7. SSH 端口修改
+# 9. SSH 端口修改
 configure_ssh_port() {
     echo ""
     echo -e "${BLUE}=== SSH 端口修改 ===${NC}"
@@ -924,7 +1052,7 @@ configure_ssh_port() {
     fi
 }
 
-# 8. SSH 密钥认证
+# 10. SSH 密钥认证
 configure_ssh_key() {
     echo ""
     echo -e "${BLUE}=== SSH 密钥认证配置 ===${NC}"
@@ -945,7 +1073,7 @@ configure_ssh_key() {
     fi
 }
 
-# 9. fail2ban 安装配置
+# 11. fail2ban 安装配置
 configure_fail2ban() {
     echo ""
     echo -e "${BLUE}=== fail2ban 入侵防护配置 ===${NC}"
@@ -1103,6 +1231,8 @@ main() {
     optimize_system
     configure_bbr
     configure_swap
+    install_zsh
+    install_nodejs
     install_docker
     configure_ssh_port
     configure_ssh_key

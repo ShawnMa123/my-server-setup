@@ -26,7 +26,7 @@
 
 ### 📁 文件说明
 
-- `server-setup.sh` - 主要的交互式配置脚本
+- `server-setup.sh` - 主要的交互式配置脚本（支持 11 个配置模块）
 - `server-setup-guide.md` - 详细的技术配置文档
 - `ENHANCED_GUIDE.md` - 增强版功能使用指南
 
@@ -49,6 +49,8 @@
 | 系统调优 | 内核参数和网络优化 | ✅ 推荐 | 20-50% 性能提升 |
 | BBR 网络 | Google BBR 拥塞控制算法 | ✅ 推荐 | 2-25倍 吞吐量提升 |
 | SWAP 配置 | 虚拟内存扩展 | ✅ 推荐 | 防止 OOM |
+| Zsh + Oh-My-Zsh | 强大的 Shell 环境 | ✅ 推荐 | 开发效率提升 |
+| Node.js LTS | JavaScript 运行时环境 | ✅ 推荐 | 现代化开发 |
 | Docker 安装 | 容器化平台部署 | ✅ 推荐 | 现代化部署 |
 | SSH 安全 | 端口修改和密钥认证 | ⚠️ 谨慎 | 安全加固 |
 | fail2ban | 入侵检测防护系统 | ✅ 推荐 | 自动防护 |
@@ -188,7 +190,7 @@ A powerful multi-distribution Linux server security configuration and optimizati
 
 ### 📁 File Structure
 
-- `server-setup.sh` - Main interactive configuration script
+- `server-setup.sh` - Main interactive configuration script (supports 11 configuration modules)
 - `server-setup-guide.md` - Detailed technical configuration documentation
 - `ENHANCED_GUIDE.md` - Enhanced feature usage guide
 
@@ -211,6 +213,8 @@ A powerful multi-distribution Linux server security configuration and optimizati
 | System Tuning | Kernel parameters and network optimization | ✅ Recommended | 20-50% Performance Boost |
 | BBR Network | Google BBR congestion control algorithm | ✅ Recommended | 2-25x Throughput Improvement |
 | SWAP Config | Virtual memory extension | ✅ Recommended | OOM Prevention |
+| Zsh + Oh-My-Zsh | Powerful shell environment | ✅ Recommended | Development Efficiency |
+| Node.js LTS | JavaScript runtime environment | ✅ Recommended | Modern Development |
 | Docker Install | Containerization platform deployment | ✅ Recommended | Modern Deployment |
 | SSH Security | Port modification and key authentication | ⚠️ Caution | Security Hardening |
 | fail2ban | Intrusion detection and protection system | ✅ Recommended | Automatic Protection |
